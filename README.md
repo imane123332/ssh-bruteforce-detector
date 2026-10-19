@@ -2,7 +2,6 @@
 
 A small Python tool that reads an SSH `auth.log`, turns raw lines into structured events and detects three kinds of suspicious activity: **brute force**, **password spraying** and **post-compromise logins**. Alerts are mapped to [MITRE ATT&CK](https://attack.mitre.org/) techniques.
 
-> Built as a blue-team / SOC learning project. All sample data is synthetic (RFC 5737 documentation IPs), so it is safe to run and share.
 
 <!-- TODO: replace with your own screenshot: take it from your terminal after running analyzer.py, save it as docs/demo.png -->
 ![demo](docs/demo.png)
@@ -21,11 +20,10 @@ A small Python tool that reads an SSH `auth.log`, turns raw lines into structure
 git clone https://github.com/imane123332/ssh-bruteforce-detector.git
 cd ssh-bruteforce-detector
 
-python gen_sample_log.py > samples/auth.log        # regenerate the sample log (optional)
+python gen_sample_log.py > samples/auth.log        # regenerate the sample log 
 python analyzer.py --log samples/auth.log --year 2026
 ```
 
-Requires Python 3.9+. No dependency to run the tool (`pytest` only for the tests).
 
 ### Options
 
@@ -88,25 +86,5 @@ python -m pytest -q
 - Only `sshd` password and public-key failures are parsed; other services are ignored.
 - Spray detection ignores timing: it counts distinct usernames over the whole file.
 
-## Possible improvements
 
-- HTML report and CSV export
-- Whitelist of trusted IPs and per-user thresholds
-- Live mode (tail the log) and a `fail2ban`-style blocking hook
-- GeoIP enrichment and support for Windows event logs
 
-## Project structure
-
-```
-├── analyzer.py          # CLI entry point
-├── parser.py            # raw sshd lines -> event dicts
-├── detectors.py         # brute force, spray and compromise rules
-├── gen_sample_log.py    # synthetic auth.log generator
-├── samples/auth.log     # generated sample data
-├── tests/               # pytest suite
-└── requirements.txt
-```
-
-## Disclaimer
-
-For educational use on logs from systems you own or are authorized to analyze.
