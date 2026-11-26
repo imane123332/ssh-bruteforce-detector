@@ -78,13 +78,6 @@ python -m pytest -q
 
 16 tests cover the parser (valid, invalid, ISO and malformed lines), each detector (including threshold boundaries, slow attackers and legitimate users) and an end-to-end run on the sample log.
 
-## Limitations
-
-- Syslog timestamps have no year, and a Dec to Jan rollover inside one file is not handled.
-- Offline analysis of a single file: no log rotation handling and no real-time monitoring.
-- Behind NAT, many users share one IP, which can cause false positives. There is no whitelist yet.
-- Only `sshd` password and public-key failures are parsed; other services are ignored.
-- Spray detection ignores timing: it counts distinct usernames over the whole file.
 
 
 
